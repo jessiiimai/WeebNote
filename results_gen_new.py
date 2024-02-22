@@ -50,7 +50,7 @@ def generate_season(year, season):
         else:
             st.write(f"Link to  trailer: {url}")
     else:
-        st.write("With your settings, there was no title available. Please choose other settings!")
+        st.write("Oops! Something went wrong there! Please generate again or choose other settings.")
 
 
 def generate_genre(*genre_choice):
@@ -72,10 +72,8 @@ def generate_genre(*genre_choice):
     img = sex3["data"][num]["images"]["webp"]["image_url"]
     url = sex3["data"][num]["trailer"]["url"]
 
-    current_anime = [title]
-    st.session_state.current_anime = str(current_anime)
-    current_anime_img = [img]
-    st.session_state.img = str(current_anime_img)
+    st.session_state.current_anime = title
+    st.session_state.img = img
 
     st.write(title)
     st.image(img)
