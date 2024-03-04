@@ -3,7 +3,7 @@ from weebnote_application import open_app
 from helpers import connect_to_deta, fetch_data
 
 st.set_page_config(page_title="WeebNote")
-# so we can save login information in session state later
+# save the status of being logged in to a session state, but it is false at first to show the login page
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
@@ -38,8 +38,10 @@ def login_form():
 
 # when you are logged in, the app opens
 if st.session_state.logged_in:
+    # this function gets called from weebnote_application.py
     open_app()
 else:
+    # show login page
     login_form()
     # show some info text
     st.markdown('<p style="font-weight: bold; font-size: 15px;'

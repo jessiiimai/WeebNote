@@ -2,22 +2,20 @@ import streamlit as st
 from helpers import connect_to_deta, fetch_data
 from filter_sliders_new import seasons_tab, genre_tab
 
-if "count" not in st.session_state:
-    st.session_state.count = False
-
 # create a new database for the anime stored together with the username
 base_name = "user_animelist"
 db = connect_to_deta(base_name)
-# if db is empty and does not work: db.insert({"user": "", "anime_title": "", "image": ""})
+# if db is empty and does not work try:
+# db.insert({"user": "", "anime_title": "", "image": ""})
 
 # show anime list in anime list tab
 def show_mylist():
-    # fetch all the stored anime in the database
+    # fetch all the stored anime
     fetch_animelist = fetch_data(db)
     if "anime_title" in fetch_animelist.columns:
         # make a list of images corresponding to the user
         imagelist = list(fetch_animelist[fetch_animelist.user == st.session_state.current_user].image)
-        # order the pictures in the column
+        # sort the pictures in 2 columns, just to look nicer
         col_left, col_right = st.columns(2)
         # every second image has its own for loop so that the images are in 2 different columns
         left_images = imagelist[0::2]  # column left
@@ -27,10 +25,12 @@ def show_mylist():
             # get a list for the titles corresponding to the images corresponding to the current user
             title_imagelist = list(fetch_animelist[fetch_animelist.image == st.session_state.current_image]
                                    [fetch_animelist.user == st.session_state.current_user].anime_title)
+            # fetch the key corresponding to the anime
             key = list(fetch_animelist[fetch_animelist.image == st.session_state.current_image]
                                    [fetch_animelist.user == st.session_state.current_user].key)[0]
             with col_left:
-                st.image(i, caption=title_imagelist, width=300)  # width, so that they are all the same size
+                st.image(i, caption=title_imagelist, width=300)  # enter width, so that they are all the same size
+                # make a button to delete an anime entry from your list
                 delete_left = st.button("❌", key="button1"+i)
                 if delete_left:
                     db.delete(key)
@@ -38,12 +38,15 @@ def show_mylist():
 
         for r in right_images:
             st.session_state.current_image = r
+            # get a list for the titles corresponding to the images corresponding to the current user
             title_imagelist = list(fetch_animelist[fetch_animelist.image == st.session_state.current_image]
                                    [fetch_animelist.user == st.session_state.current_user].anime_title)
+            # fetch the key corresponding to the anime
             key = list(fetch_animelist[fetch_animelist.image == st.session_state.current_image]
                        [fetch_animelist.user == st.session_state.current_user].key)[0]
             with col_right:
-                st.image(r, caption=title_imagelist, width=300)
+                st.image(r, caption=title_imagelist, width=300) # enter width, so that they are all the same size
+                # make a button to delete an anime entry from your list
                 delete_right = st.button("❌", key="button1" + r)
                 if delete_right:
                     db.delete(key)
@@ -53,7 +56,7 @@ def show_mylist():
 # show matches with friends
 def match_friends():
     # input and button
-    friend = st.text_input("Type in a friend's name! For a test, you can try testa and testb.")
+    friend = st.text_input("Type in a friend's name! For a test, you can try ash and misty.")
     friend_request = st.button("Try to get a match!")
 
     # click on button
@@ -75,10 +78,10 @@ def match_friends():
             matches = list(set(animelist_friend) & set(animelist_currentuser))
             # checks if there is something stored in the list
             if len(matches) == 0:
-                st.write("OH sad NO MATCHES oH nO OH NO OH NOOOOOOO")  # we need to change this
+                st.write("OH sad NO MATCHES oH nO OH NO OH NOOOOOOO")  # communicating there are no matches dramatically
             else:
                 st.write("You have matched for these anime:")
-                # this code shows the anime in bullet points
+                # this code shows the found matches as anime titles in bullet points
                 code = []
                 font_colour = "#9c9d9f"
                 font_size = "20"
@@ -93,6 +96,7 @@ def match_friends():
 
 # definition to launch the app after login
 def open_app():
+    # create a sidebar menu
     menu = ["Welcome Page", "Generate Anime", "My Anime", "My Friends", "Logout"]
     choice = st.sidebar.radio("Menu", menu)
 
@@ -121,10 +125,9 @@ def open_app():
                 add_to_animelist = st.button("Add to your Watching List!", key=2)
                 if add_to_animelist:  # click on button, anime gets added to database
                     current_user = st.session_state.current_user
-                    db.put({"user": current_user, "anime_title": st.session_state.current_anime,
-                               "image": st.session_state.img})
+                    db.put({"user": current_user, "anime_title": st.session_state.current_anime, "image": st.session_state.img})
                     del st.session_state["current_anime"]
-                    st.rerun()  # everything disappears again
+                    st.rerun()  # page reloads = generated content disappears
         with tab2:
             genre_tab(genres, genre_choice)  # creates the genre filters
             if "current_anime" in st.session_state:  # if an anime got generated, create a button
@@ -133,16 +136,21 @@ def open_app():
                     current_user = st.session_state.current_user
                     db.put({"user": current_user, "anime_title": st.session_state.current_anime, "image": st.session_state.img})
                     del st.session_state["current_anime"]
-                    st.rerun()  # everything reloads = disappears
+                    st.rerun()  # page reloads = generated content disappears
 
     elif choice == "My Anime":
+        # create a header
         st.header("My Anime List!")
+        # see definition above
         show_mylist()
     elif choice == "My Friends":
+        # create a header
         st.header("My Friends")
+        # see definition above
         match_friends()
     elif choice == "Logout":
         st.markdown("Click the button to logout. Thanks for using the app!")
+        # create a button
         logout = st.button("Logout")
         if logout:  # change all the settings to how they were in the beginning
             st.session_state.logged_in = False
