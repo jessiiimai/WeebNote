@@ -56,7 +56,8 @@ def show_mylist():
 # show matches with friends
 def match_friends():
     # input and button
-    friend = st.text_input("Type in a friend's name! For a test, you can try ash and misty.")
+    friend = st.text_input("Type in a friend's name! For a test, you can try ash or misty.")
+
     friend_request = st.button("Try to get a match!")
 
     # click on button
