@@ -1,6 +1,6 @@
 import streamlit as st
 from helpers import connect_to_deta, fetch_data
-from filter_sliders_new import seasons_tab, genre_tab
+from filter_sliders import seasons_tab, genre_tab
 
 # create a new database for the anime stored together with the username
 base_name = "user_animelist"
