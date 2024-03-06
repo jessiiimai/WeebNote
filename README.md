@@ -12,8 +12,8 @@ The username is "ash" or "misty". Leave the password empty.
 - weebnote_application.py: the code for the actual app that gets executed when you succesfully logged in
 - filter_sliders-new.py: the code for the user to adjust his randomization through filters
 - results_gen_new.py: the code for getting data for anime shows as results from the JIKAN API
-- helpers.py: helpers functions to save and access data in deta (https://deta.space/collections/a07wgwmeynj)
+- helpers.py: helpers functions to access data in deta (https://deta.space/collections/a07wgwmeynj)
 - requirements.txt: for the deployment of the app
 - a README file and a .gitignore file
-- weebnote_report.pdf: our report how we developed the app
+- weebnote_report.pdf: our report about how we developed the app
 
