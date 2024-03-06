@@ -6,7 +6,7 @@ Test it out: https://weebnote.streamlit.app/
 The username is ash or misty in lower caps. Leave the password empty. 
 
 ## This repository contains: 
-- images: with two copyright free images used in the MVP from...
+- images: with a copyright free image used in the MVP with added title and without from https://unsplash.com/de/fotos/menschen-die-nachts-in-der-nahe-von-gebauden-spazieren-gehen-DpPutJwgyW8.
 - Anime Generator Pitch.pdf: which is the our powerpoint presentation to our first app pitch
 - weebnote_login.py: the code for the first page the user encounters with the login widget
 - weebnote_application.py: the code for the actual app that gets executed when you succesfully logged in
