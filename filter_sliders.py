@@ -1,5 +1,5 @@
 import streamlit as st
-from results_gen_new import generate_season, generate_genre
+from results_gen import generate_season, generate_genre
 
 
 def seasons_tab():
