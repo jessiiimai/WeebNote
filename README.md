@@ -1,6 +1,8 @@
 # WeebNote
-"WeebNote" is an exam project from Phuong Anh Bui and Jessica Maier for the 5th semester Digital Media seminar "App development" in the module "Practical experience in digital media II". This app MVP is built with python in streamlit and generates random anime suggestions for you to watch, save in your watchlist or compare your saved shows to your friends' watchlists.
+"WeebNote" is an exam project from Phuong Anh Bui and Jessica Maier for the 5th semester Digital Media seminar "App development" in the module "Practical experience in digital media II" by Sarah Haq. This app MVP is built with python in streamlit and generates random anime suggestions for you to watch, save in your watchlist or compare your saved shows to your friends' watchlists.
+
 Test it out: https://weebnote.streamlit.app/
+
 The username is "ash" or "misty". Leave the password empty. 
 
 ## This repository contains: 
