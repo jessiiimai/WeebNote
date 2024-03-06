@@ -3,7 +3,7 @@
 
 Test it out: https://weebnote.streamlit.app/
 
-The username is "ash" or "misty". Leave the password empty. 
+The username is ash or misty in lower caps. Leave the password empty. 
 
 ## This repository contains: 
 - images: with two copyright free images used in the MVP from...
